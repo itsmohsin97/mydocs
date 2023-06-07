@@ -1,0 +1,131 @@
+git commit -m 'my notes' -- app.js 
+<git commit -m 'my notes' -- path/to/my/file.ext> ## to send single file to git repo
+git init
+
+git add .
+
+git remote add origin http://localhost:6610/test1
+
+git commit -am "test"
+
+
+git push origin master --force
+
+
+-v ${PWD}
+
+I:\NAS
+-------------------------------------------------------------------------------------------------------------------------------
+docker run -dit --name simple-update-file-server -p 5080:80 -v $(pwd):/usr/local/apache2/htdocs/:ro httpd:2.4
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /i/onedev:/opt/onedev -p 8080:6610 -p 6611:6611 1dev/server
+
+docker run -it --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /I/onedev:/opt/onedev -p 8080:6610 -p 6611:6611 1dev/server
+
+
+docker run -d --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /I/NAS:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+
+docker run -it --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /i/onedev:/opt/onedev -p 8080:6610 -p 6611:6611 1dev/server
+## to run 1dev in docker container 
+
+
+docker run --name onedev -d --restart always -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------Restorebackup--------------------
+
+$ docker run -it --rm -v $(pwd):/opt/onedev 1dev/server bash 
+
+$ docker run -it --rm -v $(pwd):/opt/onedev 10ce6bd6191d bash 
+
+
+
+
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/Onedev/VenkatachalaOnedev/1dev/_data:/opt/onedev -p 6610:6610 -p 6611:6611 10ce6bd6191d 
+A:\Onedev\VenkatachalaOnedev\1dev\_data
+
+/opt/onedev/bin/restore-db.sh /opt/onedev/site/db-backup/2023-04-10_01-00-03.zip
+
+ /opt/onedev/site
+
+
+./restore-db.sh A:/Onedev\VenkatachalaOnedev/1dev/_data/site/db-backup/2023-04-10_01-00-03
+
+
+docker run -it --rm -v A:/Onedev/VenkatachalaOnedev/1dev/_data:/opt/onedev 1dev/server bash 
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v A:/Onedev/VenkatachalaOnedev/1dev/_data -p 6610:6610 -p 6611:6611 10ce6bd6191d
+
+
+2023-04-10_01-00-03
+-------------------Restorebackup--------------------
+
+
+
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /E/onedev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+or
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v E/onedev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /i/onedev:/opt/onedev -p 8080:6610 -p 6611:6611 1dev/server
+
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /share/OneDev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /OneDev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /share/CACHEDEV1_DATA/OneDev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /home/myself/onedev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /share/OneDev/:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+/var/run/docker.sock:/var/run/docker.sock   :/opt/onedev
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v -v ${PWD}:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+
+
+
+
+
+docker run -it -v /share/CACHEDEV1_DATA/OneDev:/var/run/docker.sock -v /share/CACHEDEV1_DATA/OneDev:/opt/onedev -p 6610:6610 -p 6611:6611 1dev/server
+###To get the basic info of the project
+curl -u sultan:test123 http://10.0.0.28:6610/api/projects/1
+
+## to delete the project with id
+
+curl -u sultan:test123 -X DELETE http://10.0.0.28:6610/api/projects/7
+
+curl -u sultan:test123 http://10.0.0.28:6610/api/projects/angular
+
+
+
+$ curl -u itsultan:Mohsin97 -G http://localhost:6610/api/projects --data-urlencode 'query="Name" is "projectName"' --data-urlencode offset=0 --data-urlencode count=100
+
+
+$ curl -u itsultan:Mohsin97 http://localhost:6610/api/projects/1
+
+
+
+$ curl -u itsultan:Mohsin97 -X DELETE http://localhost:6610/api/projects/5
+
+
+curl -u <login name>:<password or access token> -X DELETE http://localhost:6610/api/users/1
+
+curl -u itsultan:test123 -X DELETE http://localhost:6610/api/angularcode/2
+
+curl -u itsultan:test123 http://localhost:6610/api/users/1
+curl -u itsultan:Mohsin97 -X DELETE http://localhost:6610/projects/angularcode
+
+curl -u itsultan:Mohsin97 -X DELETE http://localhost:6610//api/groups/1
+
+
+$ curl -u itsultan:test123 -G http://localhost:6610/api/users/angularcode --data-urlencode name=string --data-urlencode fullName=string --data-urlencode email=string --data-urlencode offset=0 --data-urlencode count=100

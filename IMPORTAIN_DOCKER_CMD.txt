@@ -1,0 +1,264 @@
+docker network connect snauth snstripedblendownershipnodeservice-24-05-22-build1.0
+
+docker network connect snauth < container name or id SnStripedblendOwnershipNodeService-14-04-22-build1.0>
+
+---------------------------------------
+Not working 
+docker run -d --name file-upload-service -v $(pwd):/home/storage -p 9104:9104 file-upload-service:latest
+
+---------------------------------------
+
+
+
+docker-compose -p snsbOns up --build -d
+
+docker-compose -p snsbOns down -v
+----------------------------------------------
+Copy Files from container
+
+sudo docker cp <Path in the local machine> <Container ID>:<Path of file inside the container>
+EX:
+sudo docker cp /home/username/Desktop/folder/file.txt f4628571q5gc:/usr/src/app/
+--------------------------------------------------------------------------------------------
+##HOW DOCKER WORKS
+hard ware
+||
+VV
+
+OPERATING SYSTEM
+
+||
+VV
+docker-engine
+--------------------------------
+docker demon error  on another user
+
+sudo chmod 666 /var/run/docker.sock
+------------------------------------------------------------------------------
+Backup docker volume
+
+docker run --rm -v jenkins_home:/var/jenkins_home -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /var/jenkins_home
+----------------------------
+
+##to check docker disk space
+docker system df
+
+### TO GO INSIDE CONTAINER 
+
+
+## jenkins as root
+
+docker exec -it -u root bed6f093b0d /bin/bash
+
+docker exec -it df6da1dd48f5 /bin/sh  ## THIS IS SNAUTHENTICATION CONTAINER
+
+version docker 
+cat /etc/os-release
+
+sudo systemctl restart docker.socket docker.service
+
+sudo systemctl stop docker.socket
+
+systemctl restart docker.service
+
+## to see status 
+systemctl status docker.service
+
+##docker status
+sudo systemctl status docker.service
+------------------------------------------------------------------
+#### install docekr-compose 
+
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+
+chmod +x ~/.docker/cli-plugins/docker-compose
+sudo chown $USER /var/run/docker.sock
+
+
+----------------------------------------------------------------------------
+## 	IN DOCKER-COMPOSE FILE WHEN WE HAVE SAME DIR-LINUX  BUT DIFFERENT SERVICE  WE SHOULD USE -p flag TO RUN
+
+
+	 -p sninfra up --build -d
+----------------------------------------------------------------------------
+##in docker compose.yaml file ####
+LABEL:
+	SnAuth: 11-02-22
+
+## to chech the contaier using filter and label 
+docker ps --all --filter label=SnAuth=11-02-22 
+### to stop the container 
+docker ps -q --all --filter label=SnAuth=11-02-22 | xargs docker stop
+## to start the container 
+docker ps -q --all --filter label=SnAuth=11-02-22 | xargs docker start
+
+
+docker ps --all --filter label=SnAuth | xargs docker stop
+
+docker ps --all --filter label=SnAuth=11-02-22
+
+
+docker ps --all --filter label=type=11-02-22
+
+docker ps --all --filter label=type=secondary | xargs docker stop
+
+
+to start container using filter and label
+docker ps -q --all --filter label=type=11-02-22 | xargs docker start
+to stop runnig container using label
+docker ps -q --all --filter label=type=11-02-22 | xargs docker start
+
+##inspect docker container using filter label 
+docker ps --all --filter label=type=secondary
+
+------------------------------------------------------------------------------
+## DOCKER NETWORK CREATE Add containers to a network
+
+
+docker network connect <bridge name> <container_name>
+
+------------------------------------------------------------------------------
+	
+$ docker network create -d overlay --subnet=192.168.10.0/24 my-overlay-net
+
+
+------------------------------------------------------------------------------
+#### portainer to inspect all docker container in gui
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.stock:/var/run/docker.stock -v pontainer_data:/data portainer/portainer-ce
+## TO RUN PORTAINER
+docker run -v /home/torizon/portainer:/data -p 8840:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce:2.0.0
+
+docker update --restart unless-stopped 8d133dd87c50
+
+docker run -d --restart unless-stopped httpd
+
+docker logs -f <container-id>
+
+docker load -i ccangular6sept.tar
+
+------------------------------------------------------------------------------
+## to shown only stopped containers
+docker ps --filter "status=exited"
+
+## to REMOVE ALL STOPPED CONTAINRES
+docker container prune -y
+
+docker rm -f $(docker ps -aq)  ## for containers remover all
+
+docker rmi -f $(docker images -a -q) ## to remove images
+
+docker volume rm $(docker volume ls -q)  ## to remove volume
+
+## to restart all containeres
+
+docker restart $(docker ps -a -q) 
+
+docker volume rm $(docker volume ls -qf dangling=true) ## remove all the dangling volumes 
+
+docker system prune  
+
+docker rmi -f $(docker images -a -q)
+
+
+#to remove all network and container, images
+
+docker system prune
+to remove all container expect one
+docker rm $(docker ps -a -q | grep -v "my_container_id")
+ex
+docker rm -f $(docker ps -a -q | grep -v "7ea04d493e98")
+
+##To give all container restart always unless stopped
+docker update --restart unless-stopped $(docker ps -q)
+
+------------------------------------------------------------------------------
+
+Example: on dockerfile
+
+# Label docker image
+LABEL version="0.1"
+LABEL maintaner="John Smith"
+LABEL release-date="2020-04-05"
+LABEL promoted="true"
+
+*****docker container prune --filter="label!=maintainer=Jeremy"
+*****docker rm -f $(docker ps -a | grep httpd | awk '{print $1}')
+	docker stop -f $(docker ps -a | grep httpd | awk '{print $1}')
+docker image prune -a --force --filter "label!=image_name"
+##This command tells Docker to remove all containers that are not labeled with a maintainer of "jeremy." The != command is a
+ logical notation that means "not equal to."
+
+##to remove all container ecpect one 
+oo
+
+#/bin/sh
+#images
+docker image rm -f $(docker images -a | grep -v "imagename" | awk 'NR>1 {print $3}')
+
+#container
+docker rm $(docker ps -a | grep -v "<container name or id" | awk 'NR>1 {print $1}')
+
+docker run -d -p 80:80 docker/getting-started
+
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 101962e29d67
+
+docker run --env-file .env -d -p 3000:1000 itsultan/ccnodeservice:v5
+docker run --name angularapp -d -p 4000:80 itsultan/ccangular26aug:v12
+
+docker images
+docker pull
+docker run
+docker stop
+docker start
+docker stop
+docker restart
+docker build -t 
+docker rmi imageid
+docker rmi $(docker images -q)
+docker ps
+docker ps -a
+docker ps -aq
+docker exec -it <container_name>
+docker logs <container_name>
+docker rm containerid
+docker inspect <container_name>
+docker rm $(docker ps -aq)
+ 
+ping <container ip>
+
+
+docker network ls
+
+----To save Docker images--------
+
+docker save -o /home/sultan/carnaticcorner.tar carnaticcorner
+
+rsync -avc carnaticcorner.tar myself@10.0.0.111:/home/myself
+
+docker load –i carnaticcorner.tar
+
+
+docker inspect <songms>
+
+---------------------------------------------------
+Step 4: Copy the file to your Local System
+
+You can use the docker cp command to copy the file.
+
+sudo docker cp 135950565ad8:/geeksforgeeks.txt ~/Desktop/geeksforgeeks.txt
+
+
+ex:docker cp e558a231b9f4:/usr/share/nginx/html /mnt/c/Users/Mohsinsultan/DockerImagesWithCode/Homepage/
+
+
+i have use wsl2
+--------------------------------------
+
+
+
+
+docker run -it -p 3001:1000 songdb
+
+
+docker rm -f $(docker ps -aq)   to remove all containers
