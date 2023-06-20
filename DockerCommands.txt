@@ -45,7 +45,16 @@ docker system df
 
 ### TO GO INSIDE CONTAINER 
 
+*************************
 
+How to show recent create container.
+docker ps --latest -a
+
+To list last 10 created  container 
+docker ps --last 10 -a
+this will show running and stop container..
+
+**************************
 ## jenkins as root
 
 docker exec -it -u root bed6f093b0d /bin/bash
