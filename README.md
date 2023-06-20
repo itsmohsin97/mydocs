@@ -1,13 +1,16 @@
-<h1 align="center">Hi, guys! <img src="https://github.com/itsmohsin97/wervlad/assets/24524555/766d336d-b87d-44ba-807c-c51de2bc6b4d" width="28px" alt="👋"></h1>
+<h1 align="center">Hi, guys! width="28px" alt="👋"></h1>
 
 <p align="center">
-    <b>Welcome to my page!</b><br><br>
+    <b>Welcome to my this repo!</b><br><br>
     <i>
         I'm Sultan Mohideen Bijili.<br>
         Currently learning to walk in Dev-Ops And Some Basic of Angular & Node without falling on my bottom.<br>
         <br>
     </i><br>
 </p>
+
+### Docer commands
+[![Docker](https://img.shields.io/badge/docker-black?style=for-the-badge&logo=docker)](https://hub.docker.com/u/wervlad)
 
 ### Languages
 [![Typectipt](https://img.shields.io/badge/python-black?style=for-the-badge&logo=python)](https://github.com/itsmohsin97)
