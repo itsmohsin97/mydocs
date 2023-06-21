@@ -1,0 +1,203 @@
+mkdir -p gitrepos/16-02-22.git
+cd gitrepos/snauth14-03-22.git
+git init --bare --shared=group
+sudo chgrp -R developers .
+
+sudo ln -s /home/gitadmin/gitrepos/sninfra/SnInfraNodeService.git /home/mohsin/sninfra
+
+sudo ln -s /home/gitadmin/gitrepos/15-Feb-2022.git/ /home/mohsin/snauth
+
+---------
+To Restore file from different Branch 
+
+git restore -s somebranch -- afile
+---------
+
+Rename Branch
+git branch -m oldname newname
+
+------------
+TO VIEW GIT GRAPH
+git log --graph --oneline --decorate
+
+---------------
+git push -f origin master
+git push --force-with-lease
+
+-----
+TO BACK UP WITH BRANCHS as Git bundle 
+
+git bundle create repo.bundle --all
+
+git clone --mirror git@example.org:path/repo.git
+
+----------
+linux
+sudo git bundle create <name of git> HEAD master
+
+windows
+
+git bundle create <name of git> HEAD master
+
+git bundle create  HEAD master
+
+To remove remote url
+
+
+git remote remove origin 
+
+git clone <name of git> <new di>
+
+git init
+git add --all
+
+OR to add single file
+git commit my.file -m "blah blah"
+Example:
+git commit .\src\app\app.component.html -m "app.component.html"
+
+git commit -m "any message"
+git remote add origin ssh://mohsin@10.0.0.24:/~/snauth/<your git repo>
+
+git switch -c <branch-name>
+
+##git branch list
+
+git branch -a
+
+## DELETE BRANCH
+
+git branch -d <branch name>
+
+
+git push --set-upstream origin -<branch-name>
+
+
+
+git pull --rebase origin master
+--------
+About Git Stash
+
+git stash
+
+git stash list ##to list your stashed changes.
+
+git stash show ##to see what is in the below commands.
+
+git stash apply to apply the most recent stash.
+
+git stash apply stash@{n} to apply an older stash.
+
+git stash drop 
+
+git stash drop stash@{ }
+
+git stash apply stash@{0}
+
+
+---------------
+
+fetch ## to check any  new branchs
+
+git fetch 
+
+git pull origin master
+
+or HEAD
+
+
+GIT CACHE clean
+
+git rm -rf --cached .
+git add .
+
+
+git fetch --prune origin
+
+git reset --hard origin/master
+
+git clean -f -d
+
+
+----------------------------
+######################
+I generally like to merge master into the development first so that if there are any conflicts, I can resolve in the development 
+branch itself and my master remains clean.
+
+Dont use this for now
+(on branch development)$ git merge master
+(resolve any merge conflicts if there are any)
+------
+Use this below 
+git checkout master
+git merge development (there won't be any conflicts now)
+
+#####################################
+--------------------------------------
+Clone repository in your local dir (or create a new repository):
+$ cd /var/www
+$ git clone git@bitbucket.org:user_name/repository_name.git
+Create a new branch. It will contain the latest files of your master branch repository
+$ git branch new_branch
+Change your current git branch to the new_branch
+$ git checkout new_branch
+Do coding, commits, as usual…
+$ git add .
+$ git commit -m “Initial commit”
+$ git push # pushes commits only to “new_branch”
+git push --set-upstream origin <branch name>
+When job is finished on this branch, merge with “master” branch:
+$ git merge master
+$ git checkout master # goes to master branch
+$ git merge development # merges files in localhost. Master shouldn’t have any  commits ahead, otherwise there will be a need for pull and merging code by hands!
+$ git push # pushes all “new_branch” commits to both branches - “master” and “new_branch”
+-----------------
+How to go back to previous commit
+
+# This will detach your HEAD, that is, leave you with no branch checked out:
+git checkout 0d1d7fc32
+
+or
+
+git checkout -b old-state 0d1d7fc32
+
+safe way
+git revert --no-commit 0766c053..HEAD
+git commit
+
+------------------
+-----How to push  git repo using  branch
+
+how to switch to existing branch 
+git checkout <branch name>
+
+
+or Ceate a new branch and switch to that
+
+git switch -c <branch-name>
+
+git add .
+ 
+git commit -m "Your message"
+
+##git branch list 
+
+git branch -a
+
+git push --set-upstream origin -<branch-name>
+
+
+git push --no-verify
+
+
+git branch -a
+
+git checkout <branch name>
+git log --oneline --graph
+
+
+
+
+git config --global user.email "mohsinsultan14k"
+git config --global user.name "sultan"
+

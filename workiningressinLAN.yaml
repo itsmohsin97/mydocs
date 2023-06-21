@@ -1,0 +1,79 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nginx
+spec:
+ stripPrefix:
+    prefixes:
+      - /angularapp
+      - /userregns
+      - /snauthenticationk8s
+      - /snauthzc
+      - /snauthorizationk8s
+      - /adminportal
+      - /	
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule          
+      match: Host(`10.0.0.240`) && PathPrefix(`/angularapp`)
+      services:
+        - kind: Service
+          name: snuserreg
+          port: 80          
+      middlewares:
+        - name: nginx  
+    - kind: Rule
+      match: Host(`10.0.0.240`) && PathPrefix(`/snauthenticationk8s`)
+      services:
+        - kind: Service
+          name: snauthenticationk8s
+          port: 80          
+      middlewares:
+        - name: nginx
+    - kind: Rule
+      match: Host(`10.0.0.240`) && PathPrefix(`/userregns`)
+      services:
+        - kind: Service
+          name: snuserregsvc
+          port: 80       
+      middlewares:
+        - name: nginx
+    - kind: Rule
+      match: Host(`10.0.0.240`) && PathPrefix(`/snauthzc`)
+      services:
+        - kind: Service
+          name: snauthzc
+          port: 80       
+      middlewares:
+        - name: nginx   
+    - kind: Rule
+      match: Host(`10.0.0.240`) && PathPrefix(`/snauthorizationk8s`)
+      services:
+        - kind: Service
+          name: snauthorizationk8s
+          port: 80       
+      middlewares:
+        - name: nginx
+    - kind: Rule
+      match: Host(`10.0.0.240`) && PathPrefix(`/adminportal`)
+      services:
+        - kind: Service
+          name: snadminportal
+          port: 80       
+      middlewares:
+        - name: nginx
+    - kind: Rule
+      match: Host(`10.0.0.240`) && PathPrefix(`/`)
+      services:
+        - kind: Service
+          name: homepage
+          port: 80       
+      middlewares:
+        - name: nginx

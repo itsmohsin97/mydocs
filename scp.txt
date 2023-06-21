@@ -1,0 +1,5 @@
+scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
+
+
+scp ./file.txt remote_username@remote_ip:/remote/directory
+

@@ -1,0 +1,96 @@
+version docker 
+cat /etc/os-release
+
+sudo systemctl restart docker.socket docker.service
+
+sudo systemctl stop docker.socket
+
+
+ps -ef | grep docker
+
+
+systemctl restart docker.service
+
+systemctl status docker.service
+htop ## to see what running in container 
+
+#### portainer to inspect all docker container in gui
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.stock:/var/run/docker.stock -v pontainer_data:/data portainer/portainer-ce
+docker update --restart unless-stopped 8d133dd87c50
+
+docker run -d --restart unless-stopped httpd
+docker logs -f <container-id>
+docker load -i ccangular6sept.tar
+
+docker rm -f $(docker ps -aq) ; docker rmi $(docker images -q) ; docker volume rm $(docker volume ls -q) ; docker system prune -y
+docker rmi -f $(docker images -a -q)
+
+#to remove all network and container, images
+docker system prune
+to remove all container expect one
+docker rm $(docker ps -a -q | grep -v "my_container_id")
+ex
+docker rm -f $(docker ps -a -q | grep -v "7ea04d493e98")
+
+******docker rm -f $(docker ps -a | grep httpd | awk '{print $1}')
+	docker stop -f $(docker ps -a | grep httpd | awk '{print $1}')
+
+*****docker container prune --filter="label!=maintainer=Jeremy"
+##This command tells Docker to remove all containers that are not labeled with a maintainer of "jeremy." The != command is a
+ logical notation that means "not equal to."
+
+
+
+#/bin/sh
+#images
+docker image rm -f $(docker images -a | grep -v "imagename" | awk 'NR>1 {print $3}')
+
+#container
+docker rm $(docker ps -a | grep -v "<container name or id" | awk 'NR>1 {print $1}')
+
+docker run -d -p 80:80 docker/getting-started
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 101962e29d67
+
+docker run --env-file .env -d -p 3000:1000 itsultan/ccnodeservice:v5
+docker run --name angularapp -d -p 4000:80 itsultan/ccangular26aug:v12
+
+
+docker images
+docker pull
+docker run
+docker stop
+docker start
+docker stop
+docker restart
+docker build -t 
+docker rmi imageid
+docker rmi $(docker images -q)
+docker ps
+docker ps -a
+docker ps -aq
+docker exec -it <container_name>
+docker logs <container_name>
+docker rm containerid
+docker inspect <container_name>
+docker rm $(docker ps -aq)
+ 
+ping <container ip>
+
+
+docker network ls
+
+
+docker save -o /home/sultan/carnaticcorner.tar carnaticcorner
+
+rsync -avc carnaticcorner.tar myself@10.0.0.111:/home/myself
+
+
+docker load –i carnaticcorner.tar
+
+docker inspect <songms>
+
+
+docker run -it -p 3001:1000 songdb
+
+
+docker rm -f $(docker ps -aq)   to remove all containers

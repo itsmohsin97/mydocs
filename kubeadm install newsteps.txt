@@ -1,0 +1,101 @@
+sudo apt install apt-transport-https curl
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
+
+sudo mv ~/kubernetes.list /etc/apt/sources.list.d
+
+sudo apt update
+
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+To install Specific version of kubernetes
+root@kmaster:~# apt-get install kubeadm=1.23.5* kubelet=1.23.5* kubernetes-cni=0.8.7-00
+
+
+swapoff -a		
+sudo nano /etc/fstab
+
+
+sudo hostnamectl set-hostname kubernetes-master
+
+sudo hostnamectl set-hostname kubernetes-worker
+
+
+Step 4: Letting Iptables See Bridged Traffic
+For the master and worker nodes to correctly see bridged traffic, you should ensure net.bridge.bridge-nf-call-iptables is set to 1 in your config. First, ensure the br_netfilter module is loaded. You can confirm this by issuing the command:
+
+lsmod | grep br_netfilter
+Optionally, you can explicitly load it with the command:
+
+sudo modprobe br_netfilter
+Now, you can run this command to set the value to 1:
+
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
+ 
+
+
+
+
+Step 5: Changing Docker Cgroup Driver
+By default, Docker installs with “cgroupfs” as the cgroup driver. Kubernetes recommends that Docker should run with “systemd” as the driver. If you skip this step and try to initialize the kubeadm in the next step, you will get the following warning in your terminal:
+
+sudo mkdir /etc/docker
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{ "exec-opts": ["native.cgroupdriver=systemd"],
+"log-driver": "json-file",
+"log-opts":	
+{ "max-size": "100m" },
+"storage-driver": "overlay2"
+ "insecure-registries" : [ "10.0.0.24:5000" ]
+}
+EOF
+ 
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl restart docker
+
+Then, execute the following commands to restart and enable Docker on system boot-up:
+
+  
+ 
+On  MASTER
+ 
+ 
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+
+	or
+kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=10.0.0.111
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=10.0.0.34
+
+
+sudo ufw allow 6443
+sudo ufw allow 6443/tcp
+
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+
+or
+
+kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+
+kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.ymlkubectl 
+create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
+
+or
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+join the worker  with the token
+
+to deploy simple web sever 
+
+kubectl create deployment nginx --image=nginx
+
+
+kubectl describe deployment nginx
+
+kubectl create service nodeport nginx --tcp=80:80

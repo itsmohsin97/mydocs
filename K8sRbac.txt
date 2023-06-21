@@ -1,0 +1,124 @@
+kubectl create ns rbac
+
+openssl genrsa -out sultan.key 2048 # or 4096
+
+openssl req -new -key sultan.key -out sultan.csr -subj "/CN=sultan/O=rbac"
+
+#on master node
+cd /etc/kubernetes/pki
+copy ca.cat and ca.key
+to user Machine If permission error chmod it 
+
+openssl x509 -req -in sultan.csr -CA ca.csr -CAkey ca.key -CAcreateserial -out sultan.crt -days 365
+
+kubectl --kubeconfig sultan.kubeconfig config set-cluster kubernetes --server https://10.0.0.111:6443 --certificate-authority=ca.crt
+
+kubectl --kubeconfig sultan.kubeconfig config set-credentials sultan --client-certificate /home/sultan/sultan.crt --client-key /home/sultan/sultan.key
+
+kubectl --kubeconfig sultan.kubeconfig config set-context sultan-kubernetes --cluster kubernetes --namespace rbac --user sultan
+
+cp sultan.kubeconfig ~/.kube/config   
+
+-------
+
+
+copying from master node to new user node
+
+cp ~/.kube/config sultan.kubeconfig
+
+
+nano sultan.kubeconfig 
+user = sultan
+name of the context =sultan-kubernetes
+current-context = sultan-kubernetes
+users name = sultan
+delete client-certificate-data:
+delete client-key-data:
+
+encode the certificate of sultan
+cat sultan.crt | base64 -w0
+
+copy that and past on kubeconfig  client-certificate-data
+
+cat sultan.key | base64 -w0
+copy that and past  on kubeconfig client-key-data 
+
+check auth 
+kubectl --kubeconfig sultan.kubeconfig get pods
+# cannot list resource "pods" in API group "" in the namespace "default"
+
+Node create a ROlE for that user 
+on Master node
+# kubectl create role --hele | grep	kubectl
+
+create a simple role 
+
+kubectl create role sultan-rabc --verb=get,list --resource=pods --namespace rabc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+openssl genrsa -out david.key 204
+
+openssl req -new -key david.key -out david.csr -config request.csr
+
+cat david.csr | base64 | tr -d "\n"
+
+vim create-user.yaml : set nowrap
+
+kubectl apply -f create-user.yaml
+
+kubectl certificate approve david
+
+kubectl get csr david -o jsonpath='{.status.certificate}'
+
+kubectl get csr david -o jsonpath='{.status.certificate}' | base64 --decode > david.crt
+
+cat david.crt
+
+kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
+kubectl create rolebinding developer-binding-david --role=developer --user=david
+kubectl config set-credentials david --client-key=./david.key --client-certificate=./david.crt --embed-certs=true
+kubectl config set-context david --cluster=kubernetes --user=david
+kubectl config use-context david
+kubectl config  current-context
+kubectl auth can-i create deployment
+kubectl get pods
+
+
+
+-------------------
+##to edit role
+
+CAN I?
+kubectl auth can-i create pods
+
+kubectl --kubeconfig sultan.kubeconfig auth can-i create pods
+
+k -n rbac edit role sultan-rbac
+
+
+k -n rbac get role sultan-rbac -o yaml
+
+
+k -n rbac get rolebinding sultan-rbac-rolebinding -o yaml
+
+kubectl --kubeconfig sultan.kubeconfig 

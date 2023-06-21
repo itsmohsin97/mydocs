@@ -1,0 +1,21 @@
+In short, the filters are here:
+
+ip.addr == 10.0.0.1
+
+tcp or dns
+
+tcp.port == 443
+
+tcp.analysis.flags
+
+!(arp or icmp or dns)
+
+follow tcp stream
+
+tcp contains youtube
+
+http.response.code == 200
+
+http.request
+
+tcp.flags.syn == 1

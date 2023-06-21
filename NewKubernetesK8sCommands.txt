@@ -1,0 +1,347 @@
+## port already located
+ps aux |grep 7130
+
+sudo netstat -lnp | grep 10250
+sudo kill 2283
+----------------------------------
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) --address 0.0.0.0 9001:9000
+
+// Sometimes Local port needs to change.
+9001 to 9003 etc
+
+
+then  put same local Port here.
+http://10.0.0.34:9003/dashboard/#/
+or
+http://10.0.0.34:9001/dashboard/#/http/middlewares/default-nginx@kubernetescrd
+
+-------------------------------------------
+
+kubectl get pods -o wide --all-namespaces
+
+kubectl get nodes
+
+kubectl get pods --all-namespaces
+
+kubectl get service --all-namespaces
+
+kubeadm token create --print-join-command
+	
+kubectl get po -A
+
+kubectl get pods,svc --all-namespaces -o wide | less
+
+kubectl get pod -o wide
+
+kubectl get pods --show-labels
+
+kubectl get service --all-namespaces 
+ 
+kubectl get componentstatus
+
+k -n kubernetes-dashboard get all
+
+kubectl describe nodes worker1
+
+sudo systemctl status kubelet
+
+kubectl api-versions
+
+kubectl get cs
+
+
+---------------
+RBAC
+## type of role to create
+kubectl create role --help |grep kubectl
+
+---------------------------------------------
+can-i
+
+
+
+kubectl auth can-i '*' '*'
+which means all 
+
+  $ kubectl auth can-i get pods --all-namespaces
+yes
+ $ kubectl auth can-i create pods
+no
+ $ kubectl auth can-i delete pods
+no
+=-------------------------------
+### to get yaml file
+
+kubectl get deploy deploymentname -o yaml
+----------------------------
+#### delete persistent volume
+
+kubectl delete pvc --all 
+-------------------------------
+TO check api version
+
+kubectl api-resources 
+
+kubectl api-resources | grep deployment
+
+--------------------------------
+EDIT ANY SERVICES
+kubectl -n <namespacename> edit svc <svcnaname>
+k -n default edit svc traefik
+
+----------------
+
+METAL LB INSTALL
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/metallb.yaml
+
+
+
+ AND UNINSRALL
+
+kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
+kubectl delete -f metallb-configMap.yaml
+-----------------------
+HELM REPO REMOVE
+
+helm repo list
+
+helm repo remove [repo name]
+
+------------------------------------
+nginx examples for metallb
+
+docker pull tutum/hello-world
+
+k create deploy homepage --image 10.0.0.24:5000/homepage
+
+k expose deploy homepage --port 80 --type LoadBalancer
+
+k create deploy httpd --image tutum/hello-world
+
+k expose deploy httpd --port 80 --type LoadBalancer
+
+
+k create deploy nginx --image nginx
+k create deploy nginx --image nginx 
+
+k expose deploy nginx --port 80 --type LoadBalancer
+
+
+------------------------------------
+to list all  kube configs
+
+kubectl config get-contexts
+
+to set as default 
+kubectl config set-context <name of the config>
+ex kubectl config set-context demo
+
+
+-----------------------
+
+
+
+
+run traefik 
+
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) --address 0.0.0.0 9000:9000
+
+kubectl port-forward $(kubectl get pods --selector "traefik-ingress-lb" --output=name) --address 0.0.0.0 9000:9000
+
+
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+
+k8s-app=traefik-ingress-lb
+              name=traefik-ingress-lb
+
+ 
+ ---------------------------------------------
+Find out all deployments across all namespaces
+
+kubectl get deploy -A
+
+TO Restart deployment
+
+kubectl rollout restart deployment	
+
+kubectl -n {NAMESPACE} rollout restart deploy
+
+
+kubectl rollout restart deployment [deployment_name]
+----------------------------------------------------
+
+to get worker node small details 
+k get nodes -o wide
+
+-------------------
+located  cni plugin 
+
+cd /etc/cni/net.d/
+cat <>
+----------------------------
+##to see inhibitor lock is
+
+systemd-inhibit --list
+===============================
+TO GET ONLY WORKER STATUS
+kubectl get nodes --selector '!node-role.kubernetes.io/master' --output jsonpath="{range .items[?(@.status.conditions[-1].type=='Ready')]}{.metadata.name} {.status.conditions[-1].type}{'\n'}{end}"
+
+
+kubectl get events
+
+kubectl get node -o wide
+
+kubectl get service -o wide
+
+kubectl get service
+
+kubectl get namespaces
+
+kubectl cluster-info
+
+kubectl delete service <service-name>
+
+kubectl get deployments --all-namespaces
+
+=-=========-=-=-=-=--==--=-=-
+docker network inspect -f '{{.IPAM.Config}}' kind
+
+=--------------------------------------=
+
+-------------------------------------
+
+sudo systemctl enable kubelet
+
+sudo systemctl start kubelet
+------------------------------------
+
+dashboard time 
+
+kubectl -n kube-system get cm kubeadm-config -o yaml
+=---------------------------------------=
+
+
+
+
+## to check running ports
+kubectl describe service --all-namespaces | grep -i nodeport
+
+kubectl get svc --all-namespaces -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}'
+
+-------------------------------------------
+
+TO INSTALL AND UNINSRALL. MINI KUBE
+
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube tunnel
+
+minikube service list
+
+kubectl get services balanced
+
+delete minicube
+
+minikube delete
+----------------------------------
+##Worker after reboot
+
+
+kubectl get nodes
+1) First drain the node
+
+kubectl drain <node-name>
+kubectl drain <node-name> --ignore-daemonsets --delete-local-data
+ Edit instance group for nodes (Only if you are using kops)
+
+kops edit ig nodes
+) Finally delete the node
+
+kubectl delete node <node-name>
+If you are using kubeadm and would like to reset the machine to a state which was there before running kubeadm join then run
+
+kubeadm reset
+
+{
+    "exec-opts": ["native.cgroupdriver=systemd"]
+}	
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo systemctl restart 
+ ------------
+
+-------------------------------
+kubectl logs <pod name>, and kubectl describe pod <pod name>. 
+----------------------------
+
+---------------------
+
+restart" the cluster
+swapoff -a
+docker restart $(docker ps -a -q)
+kubectl get nodes
+systemctl restart kubelet
+--------------------------
+### when worker cant join after  reboot 
+kubeadm reset
+
+
+---------------------
+kubectl get nodes
+
+kubectl describe node worker1
+----------------------
+
+
+-----------------------------
+sudo netstat -lnp | grep
+sudo kill 
+
+OR 
+
+10250
+sudo kill 2283
+kubectl get pods --all-namespaces
+--------------------------------
+--------------------------------
+curl -v https://localhost:10250  -k 2>&1 |grep 'expire date'
+
+openssl x509 -text -noout -in /var/lib/kubelet/pki/kubelet.crt |grep -A2 'Validity'
+
+
+
+
+
+
+--------------------------------------------------------###########################################_-------------------------------------------------------
+You can delete all the pods in a single namespace with this command:
+
+kubectl delete --all pods --namespace=<yournamespce>
+
+kubectl delete --all deployments --namespace=<yournamespce>
+
+kubectl delete --all namespaces
+
+
+kubectl delete daemonsets,replicasets,services,deployments,pods,rc,ingress --all --all-namespaces
+
+
+
+kubectl delete deploy deploymentname -n namespacename
+
+
+## delete name spaces
+
+ kubectl delete --all namespaces
+ 
+ 
+ To delete all  pods service etc
+
+kubectl delete all --all --all-namespaces
+kubectl delete all --all --all-namespaces
+
+##delete coredns
+kubectl delete deployment coredns -n kube-system

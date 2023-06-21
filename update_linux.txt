@@ -1,0 +1,3 @@
+apt-et update -y    <to upgrade existing packages it is also used to gather information before installing or upgrading via the uptade clause
+>
+apt-get install iputils-ping -y   <Tools to test the reachability of network hosts The ping command sends>

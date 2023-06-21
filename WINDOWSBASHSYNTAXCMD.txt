@@ -1,0 +1,58 @@
+@echo off
+
+echo(CD=%CD% 
+
+REM 
+
+pushd %~dp0 ##you could also use ''pushd %~dp0'' to switch drive and folder
+
+
+Save the current directory on a stack and change to %~dp0 which is the drive-and-path of the "0'th" command-line parameter (which is the command itself) so the destination path to be set is the
+drive/path of the batch file to be executed.
+
+
+
+
+popd 
+  %~dp0
+  
+The popd command changes the current directory to the directory that was most recently stored by the pushd command. 
+Every time you use the pushd command, a single directory is stored for your use. 
+However, you can store multiple directories by using the pushd command multiple times.
+
+To return to the original path, you need a popd
+
+
+Set
+
+SetLocal ENABLEDELAYEDEXPANSION
+
+Set /P MSBuildPath=<MSBuildPath.txt
+
+
+call set x64platform=x64
+call set SnUtilityDllPath_x64=..\Common\SnUtilityDllLib\x64\%configuration%\%x64platform%SnUtilityDll.dll
+
+
+
+SET  buildAll=y
+
+call SET /p buildAll="Would you like to check the dlls of master solution ? ( y / n )"
+
+
+
+IF EXIST %SnUtilityDllPath_x64% (
+
+
+
+IF /I "%buildAll%" EQU "n"
+
+
+    goto :build-win32-dlls
+
+
+
+SET /p
+
+
+SET /p buildx64SnWavReaderDll="Would you like to build x64SnWavReaderDll again ? ( y / n )"

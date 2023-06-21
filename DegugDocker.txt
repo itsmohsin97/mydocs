@@ -1,0 +1,90 @@
+console.log('Hello ' + process.env.NAME)
+console.log('Hello ' + process.env)
+
+$ sudo docker run  [...] -e my_connection_string="xxxxx" -e my_password="xxx" [...]
+
+port=1000
+db_user_name="root"
+db_password="password"
+database="carnaticcorner"
+databasehost="host.docker.internal"
+dialect="mysql"
+These variables are case sensitive.
+Your code  / app.ts /line 41
+        this.express.set('port', process.env.PORT || '3000');
+
+-e my_password="xxx" [...]
+
+docker run -d -e my_connection_string="xxxxx" -p 3000:1000 -p 9222:9229  3cb9d8f418f5
+
+docker run -d -e my_user_name="dbuser" -e my_password="dbpassword" -p 3000:1000 -p 9222:9229 9bb9e7160fbd
+
+docker run -d -e port="1000" -e db_user_name="root" -e db_password="password" -e database="carnaticcorner" -e databasehost="host.docker.internal" -e dialect="mysql" -p 3000:1000 -p 9222:9229 
+
+docker run --env-file .env -p 3000:1000 -d -p 9222:9229 d6c89456f7e6 
+
+docker run --env-file .env -d -p 3000:1000 -p 9222:9229 itsultan/nodeservice:latest
+
+docker run --env-file ./.env -d -p 3000:1000 -p 9222:9229 itsultan/nodeservice:latest
+
+docker run --env-file ./.env -d -p 3000:1000 -p 9222:9229 itsultan/nodeservice:latest
+
+docker run -d -p 3000:8080 -p 9222:9229
+
+
+docker pull itsultan/nodeservice:latest
+
+ "use_env_variable":"env"
+
+this.express.listen(process.env.port); 
+
+docker-compose build <foldername>
+
+docker-compose up nodejs
+
+docker-compose down nodejs
+
+docker run -d -p 3000:1000
+
+docker run --env-file ./.env -d -p 3000:1000 -p 9222:9229 itsultan/songnodeservice:v4
+  
+docker run --env-file ./.env -d -p 3000:1000 -p 9222:9229
+
+docker run --env-file ./.env -d -p 3000:1000 -p 9229:9229
+
+docker run --name carnaticcorner -d -p 3000:1000 itsultan/carnataiccorner:latest
+
+#docker run -it -v ${PWD}:/work -w /work -p 5002:5000 aimvector/nodejs:1.0.0 /bin/sh
+
+
+
+docker run --rm --env-file ./.env -d -p 3000:1000 -p 9229:9229 -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

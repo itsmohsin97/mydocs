@@ -1,0 +1,12 @@
+kubectl create deployment nginx --image=nginx
+
+
+kubectl get deployments
+
+
+kubectl describe deployment nginx
+
+
+##Make the NGINX container accessible via the internet:
+kubectl create service nodeport nginx --tcp=80:80
+

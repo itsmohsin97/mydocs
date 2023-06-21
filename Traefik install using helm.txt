@@ -1,0 +1,63 @@
+
+
+
+
+helm repo list 
+
+helm uninstall <repo name>
+
+helm repo add traefik https://helm.traefik.io/traefik
+
+helm repo update
+
+helm install traefik traefik/traefik
+
+or
+
+helm install --namespace=cc traefik traefik/traefik
+---------------
+TO Install traefik on diffenetn namespace 
+helm install --namespace=testns traefiktest traefik/traefik
+
+
+
+---------------
+helm repo list
+
+helm repo remove traefik
+
+helm  -n cc list
+
+=-==================
+kubectl get svc
+
+k -n default edit svc traefik
+
+
+metallb.universe.tf/address-pool: private
+
+
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) --address 0.0.0.0 9001:9000
+
+
+
+http://10.0.0.111:9001/dashboard/#/http/middlewares/default-nginx@kubernetescrd
+
+
+
+-----------
+helm install --namespace=sninfra traefik-infra traefik/traefik
+
+kubectl -n sninfra port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) --address 0.0.0.0 9002:9000
+
+
+k -n sninfra edit svc traefik-infra
+
+---------
+kubectl -n sninfra port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) --address 0.0.0.0 9002:9000
+
+ 
+
+
+
+kubectl port-forward traefik-97b44b794-bsvjn -n kube-system 9000:9000

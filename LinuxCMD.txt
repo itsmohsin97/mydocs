@@ -1,0 +1,239 @@
+## linux basic cmd
+## to go as git user from admin 
+ su root
+ shutdown now
+ systemctl poweroff -i
+to remove processers in linux
+netstat -a
+ps aux | grep 8000
+kill -9 6123
+netstat -ltnp | grep -w ':8000'
+
+to rename any file or dir
+mv <file name or dir> <space> <new name >
+--------------------------------------------
+## 
+pushd ~
+
+this goes to your home directory, and saves the directory you came from. If you later type the following:
+
+popd
+
+you will go back to that saved directory.
+
+If you just want to go back to the prior directory you were in before a cd command, you can type:
+
+cd -
+
+and this takes you back there immediately.
+$ pushd ~
+
+go to some folders and hit
+$ popd 
+-------------------------------------------------------------------------
+Run Command in background and save in text file
+
+$ nohup command &
+ex $ nohup docker ps &
+
+Copy
+The command output is redirected to the nohup.out file.
+
+nohup: ignoring input and appending output to 'nohup.out'
+This fill will be saved in current dir
+------------------------------
+
+Web server share
+1
+python3 -m http.server
+
+python3 -m http.server 8080
+
+2
+We can using npm package
+npm install -g http-server
+go to path
+http-server
+
+(npm run http-server&)
+3
+
+twistd3 -n web --path .
+
+
+--------------------------------------------------------------------------
+
+To find publicIp 
+curl icanhazip.com
+-------------------------------------------------------
+To list numbers of Files on current Directory
+ls -1 | wc -l
+-------------------------------------------------------
+
+####
+To set a time Zone
+
+$ timedatectl list-timezones
+timedatectl set-timezone Region/Location
+exmaple:
+
+
+$ timedatectl set-timezone Asia/Kolkata
+
+
+
+
+## To check Parent process
+ps -He
+or 
+ps -axjf
+
+## to check cpu porcessor model name
+cat /proc/cpuinfo | grep "model name" 
+------
+$PSVersionTable ## TO CHECK POWERSHELL VERSION
+--------------
+reboot now
+
+
+shutdown now
+
+passwd ##to change password in linux
+To change the root password. Use <sudo passwd> command.
+netstat -na -f inet | grep LISTEN
+## to check running ports
+$ sudo nmap -sT -O localhost
+$ sudo nmap -sU -O <ip>
+wq ##to write the file after nano or vim
+$ ss -lntup
+
+q!
+route -n
+
+ ss -lntup
+ss -tulwn
+rm -rf <dir name>
+
+deluser newuser
+chmod 755 default 
+
+ss -tulx
+=-------------------------------------
+For ubuntu 13.10 - 21.10:
+To disable Ubuntu doing anything closing the laptop lid:
+
+Open the /etc/systemd/logind.conf file in a text editor as root, for example,
+
+sudo -H nano /etc/systemd/logind.conf
+If HandleLidSwitch is not set to ignore then change it:
+
+ HandleLidSwitch=ignore
+Make sure it's not commented out (it is commented out if it is preceded by the symbol #) or add it if it is missing.
+
+Restart the systemd daemon (be aware that this will log you off) with this command:
+
+sudo systemctl restart systemd-logind
+or, from 15.04 onwards:
+
+sudo service systemd-logind restart
+----------------------------------------------
+
+
+CHMOD
+
+chmod a+x <filename> ## to execute for everyone
+
+to write perminision 
+chmod a+w <filename>
+
+##run in specific user
+r =4
+w =2
+e =1
+
+
+example
+chmod 700 <filename>## this is for root user or user
+ ## 7 which means read+write+execute <you can specific any rule for this file>
+
+ex2
+chmod 070 <filename>
+only for system user or group
+
+ex3
+## for normal user or others
+chmod 002 <filename> 
+##normal user can only write
+
+
+
+##git configuration 
+git config --global user.name "sultan" ##anyname
+git congig --global user.email mohsinsultan14k@gmail.com ##your email
+ 
+cat ~/.gitconfig ## to check yours user configuration should setlect user directory
+
+cd <directory folder> :to change the directory
+
+ls -lah : to see all files and hidden files
+
+ls :to list information about files and directories within the file system
+
+touch git.txt :to create a file
+
+echo "sultan" :to print value in console 
+
+mkdir git : to create a new folder
+rm git.txt :to remove the file
+
+rm -r <Foldername> :to remove the folder 
+
+
+
+
+
+
+
+history > myfiles.txt  ##to save all data in textfile 
+
+history >> myfiles.txt  ##to add new line in that file use >>
+
+gdr 
+
+
+
+## linux basic cmd
+reboot now
+shutdown now
+netstat -na -f inet | grep LISTEN
+## to check running ports
+$ sudo nmap -sT -O localhost
+$ sudo nmap -sU -O <ip>
+wq ##to write the file after nano or vim
+$ ss -lntup
+
+ ss -lntup
+ss -tulwn
+
+ss -tulx
+
+##git configuration 
+git config --global user.name "sultan" ##anyname
+git congig --global user.email mohsinsultan14k@gmail.com ##your email
+ 
+cat ~/.gitconfig ## to check yours user configuration should setlect user directory
+
+cd <directory folder> :to change the directory
+
+ls -lah : to see all files and hidden files
+
+ls :to list information about files and directories within the file system
+
+touch git.txt :to create a file
+
+echo "sultan" :to print value in console 
+
+mkdir git : to create a new folder
+rm git.txt :to remove the file
+
+rm -r <Foldername> :to remove the folder 

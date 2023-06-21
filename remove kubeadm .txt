@@ -1,0 +1,53 @@
+WORKER RUN
+sudo kubeadm reset
+systemctl restart docker
+
+
+sudo su -
+
+sudo kubeadm reset 
+
+
+iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+
+
+
+sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
+
+
+sudo apt-get autoremove -y
+
+sudo rm -rf ~/.kube 
+
+sudo swapoff -a
+
+kubeadm reset -f
+
+sudo rm -rf /etc/cni /etc/kubernetes /var/lib/dockershim /var/lib/etcd /var/lib/kubelet /var/run/kubernetes ~/.kube/*
+
+sudo iptables -F && iptables -X
+
+sudo iptables -t nat -F && iptables -t nat -X 
+
+
+sudo iptables -t raw -F && iptables -t raw -X 
+
+sudo iptables -t mangle -F && iptables -t mangle -X 
+
+systemctl restart docker
+docker rmi -f $(docker images -a -q)
+
+sudo systemctl enable kubelet
+
+sudo systemctl start kubelet
+------------------------------------
+sudo reboot
+
+
+
+uninstall kubelet 
+which kubelet 
+copy the path
+go there and delete
+
+EX cd /usr/local/bin/
