@@ -1,0 +1,74 @@
+docker run -p 3307:3306 --name songms -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server:latest
+
+docker exec -it songms /bin/bash
+
+mysql -uroot -p -A
+select user host from mysql.user;
+
+update mysql.user set host='%' where user='root';
+
+flush privileges;
+
+exit
+exit
+
+mysql -uroot -p -P3307 -h127.0.0.1
+
+
+
+OR
+
+ 
+
+
+ 
+
+docker pull mysql/mysql-server:latest
+
+docker run -p 3307:3307 -d --name=songms mysql/mysql-server:latest
+docker run -p 3307:3307 --name songms mysql/mysql-server
+
+docker logs songms
+ 
+docker exec -it songms bash
+
+mysql -uroot -p
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+
+select user host from mysql.user;
+
+update mysql.user set host='%' where user='root';
+
+flush privileges;
+
+exit
+exit
+
+mysql -uroot -p -P3307 -h127.0.0.1
+
+root
+
+or
+
+mysql in docker
+
+
+docker pull mysql
+
+docker run --name sql -p3307:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+
+
+docker run -itd --name=mysql -p3308:3306 -e MYSQL_ROOT_PASSWORD=root --network=sultan mysql
+
+
+
+
+
+
+
+
+docker run --name sql -p3308:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+
+ 
+

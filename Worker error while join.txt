@@ -1,0 +1,35 @@
+## WORKER NOT ABLE TO JOIN
+
+##Worker after reboot
+
+kubectl drain worker1 --ignore-daemonsets --delete-local-data	
+
+kubectl delete node <node-name>
+
+kubectl get nodes
+1) First drain the node
+
+kubectl drain <node-name>
+kubectl drain <node-name> --ignore-daemonsets --delete-local-data
+ Edit instance group for nodes (Only if you are using kops)
+
+kops edit ig nodes
+) Finally delete the node
+
+kubectl delete node <node-name>
+If you are using kubeadm and would like to reset the machine to a state which was there before running kubeadm join then run
+
+kubeadm reset
+
+{
+    "exec-opts": ["native.cgroupdriver=systemd"]
+}	
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+ 
+sudo iptables -F && iptables -X
+sudo iptables -t nat -F && iptables -t nat -X 
+sudo iptables -t raw -F && iptables -t raw -X 
+sudo iptables -t mangle -F && iptables -t mangle -X

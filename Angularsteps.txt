@@ -1,0 +1,39 @@
+TO CREATE ANGULAR APPLICATION COMMAND
+==========================
+
+DO SHIFT+RIGHT CLICK ON A TARGET DIRECTORY 
+
+OPEN COMMAND PROMPT,
+*TO MAKE A NEW ANGULAR PROJECT, 
+
+type -> ng new <angularprojectname>
+
+This command will create a new angular project and it will download the node modules automatically to our project directory.
+
+*TO BUILD THE APPLICATION
+	ng build
+
+*TO RUN THE APPLICATION
+	ng serve
+
+*TO LAUNCH THE APPLICATION DIRECTLY TO CHROME
+	 ng serve -o
+
+*TO MAKE A NEW COMPONENT
+	ng generate component <componentname> [OR] ng g c <componentname>
+
+*TO CHANGE THE PORT ADDRESS
+	ng serve --port 2000 -o
+
+============================
+
+*TO INSTALL JQUERY
+	npm install jquery --save-dev
+*TO INSTALL BOOTSTRAP3
+	npm install bootstrap@3 --save-dev
+*TO INSTALL POPPER.JS
+	npm install popper.js --save-dev	
+
+=============================
+*TO RUN ELECTRON
+	npm run electron

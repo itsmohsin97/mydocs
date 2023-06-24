@@ -1,4 +1,4 @@
-<h1 align="center">Hi, guys! width="28px" alt="👋"></h1>
+<h1 align="center">Hi, guys! "👋"</h1>
 
 <p align="center">
     <b>Welcome to my this repo!</b><br><br>

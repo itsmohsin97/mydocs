@@ -1,0 +1,219 @@
+## port already located
+sudo netstat -lnp | grep 10250
+----------------------------------
+
+
+kubectl get pods -o wide --all-namespaces
+
+kubectl get nodes
+
+kubectl get pods --all-namespaces
+
+kubectl get service --all-namespaces
+
+kubeadm token create --print-join-command
+
+kubectl get pod -o wide
+
+kubectl get pods --show-labels
+ 
+kubectl get componentstatus
+
+k -n kubernetes-dashboard get all
+
+kubectl describe nodes worker1
+
+kubectl get cs
+=-------------------------------
+### to get yaml file
+
+kubectl get deploy deploymentname -o yaml
+----------------------------
+
+
+ 
+ ---------------------------------------------
+Find out all deployments across all namespaces
+
+kubectl get deploy -A
+
+TO Restart deployment
+
+kubectl rollout restart deployment [deployment_name]
+----------------------------------------------------
+
+
+
+
+
+----------------------------
+##to see inhibitor lock is
+
+systemd-inhibit --list
+===============================
+TO GET ONLY WORKER STATUS
+kubectl get nodes --selector '!node-role.kubernetes.io/master' --output jsonpath="{range .items[?(@.status.conditions[-1].type=='Ready')]}{.metadata.name} {.status.conditions[-1].type}{'\n'}{end}"
+
+kubectl get pods,svc --all-namespaces -o wide
+
+
+
+kubectl get events
+
+kubectl get node -o wide
+
+kubectl get service -o wide
+
+kubectl get service
+
+kubectl get namespaces
+
+kubectl cluster-info
+
+kubectl delete service <service-name>
+
+kubectl get deployments --all-namespaces
+
+=-=========-=-=-=-=--==--=-=-
+
+
+=--------------------------------------=
+
+-------------------------------------
+
+sudo systemctl enable kubelet
+
+sudo systemctl start kubelet
+------------------------------------
+
+dashboard time 
+
+kubectl -n kube-system get cm kubeadm-config -o yaml
+=---------------------------------------=
+
+
+
+
+## to check running ports
+kubectl describe service --all-namespaces | grep -i nodeport
+
+kubectl get svc --all-namespaces -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}'
+
+-------------------------------------------
+
+TO INSTALL AND UNINSRALL. MINI KUBE
+
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube tunnel
+
+minikube service list
+
+kubectl get services balanced
+
+delete minicube
+
+minikube delete
+----------------------------------
+##Worker after reboot
+
+
+kubectl get nodes
+1) First drain the node
+
+kubectl drain <node-name>
+kubectl drain <node-name> --ignore-daemonsets --delete-local-data
+ Edit instance group for nodes (Only if you are using kops)
+
+kops edit ig nodes
+) Finally delete the node
+
+kubectl delete node <node-name>
+If you are using kubeadm and would like to reset the machine to a state which was there before running kubeadm join then run
+
+kubeadm reset
+
+{
+    "exec-opts": ["native.cgroupdriver=systemd"]
+}	
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo systemctl restart 
+ ------------
+ 
+ 
+ 
+ 
+
+
+-------------------------------
+kubectl logs <pod name>, and kubectl describe pod <pod name>. 
+----------------------------
+
+---------------------
+
+restart" the cluster
+swapoff -a
+docker restart $(docker ps -a -q)
+kubectl get nodes
+systemctl restart kubelet
+--------------------------
+### when worker cant join after  reboot 
+kubeadm reset
+
+
+---------------------
+kubectl get nodes
+
+kubectl describe node worker1
+----------------------
+
+
+-----------------------------
+sudo netstat -lnp | grep
+sudo kill 
+
+OR 
+
+10250
+sudo kill 2283
+kubectl get pods --all-namespaces
+--------------------------------
+---------------------------------
+curl -v https://localhost:10250  -k 2>&1 |grep 'expire date'
+
+openssl x509 -text -noout -in /var/lib/kubelet/pki/kubelet.crt |grep -A2 'Validity'
+
+
+
+
+
+
+--------------------------------------------------------###########################################_-------------------------------------------------------
+You can delete all the pods in a single namespace with this command:
+
+kubectl delete --all pods --namespace=foo
+
+kubectl delete --all deployments --namespace=foo
+
+kubectl delete --all namespaces
+
+
+kubectl delete daemonsets,replicasets,services,deployments,pods,rc,ingress --all --all-namespaces
+
+
+
+kubectl delete deploy deploymentname -n namespacename
+
+
+## delete name spaces
+ kubectl delete --all namespaces
+ 
+ 
+ To delete all  pods service etc
+
+kubectl delete all --all --all-namespaces
+
+##delete coredns
+kubectl delete deployment coredns -n kube-system

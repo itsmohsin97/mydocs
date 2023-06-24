@@ -1,0 +1,60 @@
+myself@blackbox:~/k8s/Traefik$ helm repo list
+Error: no repositories to show
+myself@blackbox:~/k8s/Traefik$ helm repo add traefik https://helm.traefik.io/traefik
+"traefik" has been added to your repositories
+myself@blackbox:~/k8s/Traefik$ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "traefik" chart repository
+Update Complete. ⎈Happy Helming!⎈
+myself@blackbox:~/k8s/Traefik$ helm install traefik traefik/traefik
+NAME: traefik
+LAST DEPLOYED: Sat Apr  2 09:52:15 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+myself@blackbox:~/k8s/Traefik$ kubectl get svc -l app.kubernetes.io/name=traefik
+NAME      TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)                      AGE
+traefik   LoadBalancer   10.105.5.17   <pending>     80:30275/TCP,443:32697/TCP   13s
+myself@blackbox:~/k8s/Traefik$ kubectl get po -l app.kubernetes.io/name=traefik
+NAME                       READY   STATUS    RESTARTS   AGE
+traefik-667b854789-kxczr   0/1     Running   0          19s
+myself@blackbox:~/k8s/Traefik$ kubectl get po -l app.kubernetes.io/name=traefik -w
+NAME                       READY   STATUS    RESTARTS   AGE
+traefik-667b854789-kxczr   0/1     Running   0          23s
+traefik-667b854789-kxczr   1/1     Running   0          30s
+^Cmyself@blackbox:~/k8s/Traefik$
+myself@blackbox:~/k8s/Traefik$ k get po
+NAME                                  READY   STATUS    RESTARTS   AGE
+primary-deployment-f47ff84c8-wzllq    1/1     Running   0          4h8m
+replica-deployment-79ffc59545-7vqwf   1/1     Running   0          4h8m
+replica-deployment-79ffc59545-cxws9   1/1     Running   0          4h8m
+sninfralog-d99754478-8zhwz            1/1     Running   0          4h8m
+sninfralog-d99754478-f4cff            1/1     Running   0          4h8m
+sninfralog-d99754478-qntbq            1/1     Running   0          4h7m
+sninfrans-6cfb88b95c-9562p            1/1     Running   0          4h7m
+sninfrans-6cfb88b95c-npkfh            1/1     Running   0          4h8m
+sninfrans-6cfb88b95c-wgj7j            1/1     Running   0          4h8m
+snrcns-686f78df4b-6qwx6               1/1     Running   0          4h7m
+snrcns-686f78df4b-72kgc               1/1     Running   0          4h8m
+snrcns-686f78df4b-tjdgg               1/1     Running   0          4h7m
+snssins-854ff6856b-525th              1/1     Running   0          4h7m
+snssins-854ff6856b-khwnt              1/1     Running   0          4h8m
+snssins-854ff6856b-q8dgr              1/1     Running   0          4h8m
+traefik-667b854789-kxczr              1/1     Running   0          2m
+
+
+
+
+
+
+
+
+
+--------------------------
+Start traefik
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) --address 0.0.0.0 9000:9000
+
+
+
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000

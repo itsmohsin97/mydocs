@@ -1,0 +1,16 @@
+## to save file in localhost using tar file
+
+docker save -o /home/sultan/ccangular6sept.tar ccangular6sept
+
+## to send to file to another server
+rsync -avz ccangular6sept.tar myself@10.0.0.111:/home/myself
+
+##open your server with putty or any consonle
+ls -l
+
+
+## to load the image into the docker 
+docker load -i ccangular6sept.tar
+
+## now run the image
+docker run -itd -p 4000:80 2d2328797041

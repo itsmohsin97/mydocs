@@ -1,0 +1,157 @@
+
+## TO RUN DASHBOARD ON OUT SIDE OF  THE CLUSTER
+ 
+ 
+ 1 
+ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+ 2
+ kubectl get ns
+ 
+ kubectl get svc
+ 
+   
+ ## to check all running pods and service
+ kubectl -n kubernetes-dashboard get all
+ 3  
+ TO PORT FORWARDING   TO ACCESS IT
+ 
+ to find what port K8S dashboard is  RUNNING - SERVICE IS RUNNING ON 443
+ LOOK AT THE DETAILS ABOUT THE DASHBOARD SERVICE 
+ 
+ 
+ kubectl -n kubernetes-dashboard describe service kubernetes-dashboard
+ check the targetPort & copy  
+ ex 8443
+ 
+ now to port-forward
+ before 
+ k -n kubernetes-dashboard get all 
+ copy the dashboard pod id full
+ 
+ kubectl -n kubernetes-dashboard port-forward kubernetes-dashboard-546cbc58cd-nwj7m 8000:8443
+ 
+ use https and try on your browser
+ 
+ --------------------------------------------------
+ 4
+ NODE PORT SERVICE
+ 
+ to edit the kubernetes-dashboard  service
+ 
+kubectl -n kubernetes-dashboard edit svc kubernetes-dashboard
+ 
+ change the type to NodePort To specify a node port in ports line add nodePort: 32323 
+ and exit esc 
+	Shift : wq
+ 
+ kubectl -n kubernetes-dashboard get svc
+ 
+ you will ses new node port running
+ 
+ ex 	
+ 
+ You will need a token
+ 
+
+ex: kubectl -n kube-system describe secret deployment-controller-token-njrzm
+--------------------------------------------------
+ Create the dashboard service account
+ 
+ kubectl create serviceaccount dashboard-admin-sa
+ 
+ kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
+ 
+ kubectl get secrets
+ 
+ kubectl describe secret dashboard-admin-sa-token-c9c26
+ 
+ now copy the token and past on your browser
+ 
+ 
+ 10.0.0.111:32323/#/login
+ 
+ https://10.0.0.111:32323/#/login
+ 
+ https://localhost:32323/#/login
+
+	https://10.0.0.32:32323/#/login
+ 
+=-----------------------------------------------------------=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TO EDIT
+
+kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+
+TO DELET
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+
+
+
+kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
+
+k -n kubernetes-dashboard get all
+
+
+---------------------------------------------------------------
+
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+ OR
+
+wget https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+kubectl apply -f recommended.yaml
+
+kubectl get svc -n kubernetes-dashboard
+
+kubectl --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'
+
+Confirm the new setting:
+
+$ kubectl get svc -n kubernetes-dashboard kubernetes-dashboard -o yaml
+
+
+
+$ vim nodeport_dashboard_patch.yaml
+spec:
+  ports:
+  - nodePort: <32000. diff in u r case>
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+
+Apply the patch	
+kubectl -n kubernetes-dashboard patch svc kubernetes-dashboard --patch "$(cat nodeport_dashboard_patch.yaml)"
+
+Check deployment status:
+
+$ kubectl get deployments -n kubernetes-dashboard      
+
+Two pods should be created – One for dashboard and another for metrics.
+$ kubectl get pods -n kubernetes-dashboard
+
+
+Since I changed service type to NodePort, let’s confirm if the service was actually created.
+
+$ kubectl get service -n kubernetes-dashboard  
+
+My Service deployment was assigned a port <32000>/TCP.
+
+# Example
+https://192.168.200.14:32000
+	

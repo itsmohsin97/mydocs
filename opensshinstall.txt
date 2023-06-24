@@ -1,0 +1,28 @@
+update ubuntu
+ apt-get update
+
+uninstall and reinstall ssh server
+ sudo apt remove openssh-server
+ sudo apt install openssh-server
+
+Edit sshd_config
+vi /etc/ssh/sshd_config
+ set PasswordAuthentication yes
+ add "AllowUsers yourusername" at end of file
+
+check ssh service
+ service ssh status
+
+If you see:  * sshd is not running
+ service ssh start
+
+restart service
+ service ssh --full-restart
+
+run
+ visudo
+
+add following line after "%sudo  ALL=(ALL:ALL) ALL"
+ %sudo ALL=NOPASSWD: /usr/sbin/sshd
+
+"Ctrl + X" to exit from it
