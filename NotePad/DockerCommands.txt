@@ -150,6 +150,13 @@ docker load -i ccangular6sept.tar
 ## to shown only stopped containers
 docker ps --filter "status=exited"
 
+Print with names
+docker ps -a --filter "status=exited" --format "{{.Names}}"
+
+or Normal
+docker ps -a --filter "status=exited"
+
+
 ## to REMOVE ALL STOPPED CONTAINRES
 docker container prune -y
 
